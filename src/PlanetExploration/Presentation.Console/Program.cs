@@ -23,7 +23,9 @@ namespace Presentation.Console
             {
                 Display.Jump();
 
-                System.Console.Write("Enter commands: ");
+                Display.NewLine("(A)dvance, (B)ack, (R)ight, (L)eft, (D)rill");
+                Display.SameLine("Enter commands: ");
+
                 var commands = System.Console.ReadLine();
 
                 surface.GetRover().ExecuteCommands(commands);

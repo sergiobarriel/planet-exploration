@@ -67,7 +67,7 @@ namespace Presentation.Console
         }
 
 
-        private static void SameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        public static void SameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             SetConsoleColor(foreColor, backgroundColor);
 
@@ -76,7 +76,7 @@ namespace Presentation.Console
             SetConsoleDefaults();
         }
 
-        private static void NewLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        public static void NewLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             SetConsoleColor(foreColor, backgroundColor);
 
