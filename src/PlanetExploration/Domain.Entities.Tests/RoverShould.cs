@@ -6,11 +6,11 @@ namespace Domain.Entities.Tests
     public class RoverShould
     {
         [Fact]
-        public void rover_advance_from_zero_zero_to_zero_five()
+        public void rover_advance_from_one_one_to_one_five()
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
@@ -18,24 +18,24 @@ namespace Domain.Entities.Tests
 
             rover.ExecuteCommands("AAAAA");
 
-            Assert.True(rover.GetPosition().GetY() == 5);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetY() == 6);
+            Assert.True(rover.GetPosition().GetX() == 1);
         }
 
         [Fact]
-        public void rover_back_from_zero_five_to_zero_zero()
+        public void rover_back_from_one_five_to_one_one()
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 5)
+                .SetPosition(1, 5)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
 
             rover.ExecuteCommands("BBBBB");
 
-            Assert.True(rover.GetPosition().GetY() == 0);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetY() == 1);
+            Assert.True(rover.GetPosition().GetX() == 1);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
@@ -66,7 +66,7 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
@@ -89,19 +89,19 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
 
             rover.ExecuteCommands("ARAARALAA");
-            Assert.True(rover.GetPosition().GetY() == 0);
-            Assert.True(rover.GetPosition().GetX() == 4);
+            Assert.True(rover.GetPosition().GetY() == 1);
+            Assert.True(rover.GetPosition().GetX() == 5);
             Assert.True(rover.GetDirection() == Direction.East);
 
             rover.ExecuteCommands("LALAALARAA");
-            Assert.True(rover.GetPosition().GetY() == 0);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetY() == 1);
+            Assert.True(rover.GetPosition().GetX() == 1);
             Assert.True(rover.GetDirection() == Direction.West);
         }
 
@@ -110,14 +110,14 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.West)
                 .SetEnergy(100)
                 .Build();
 
             rover.ExecuteCommands("AAA");
-            Assert.True(rover.GetPosition().GetY() == 0);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetY() == 1);
+            Assert.True(rover.GetPosition().GetX() == 1);
             Assert.True(rover.GetDirection() == Direction.West);
         }
 
@@ -126,14 +126,14 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
                 .Build();
 
             rover.ExecuteCommands("AAAAAAAAAAAAAAA");
             Assert.True(rover.GetPosition().GetY() == 10);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetX() == 1);
             Assert.True(rover.GetDirection() == Direction.North);
         }
 
@@ -142,15 +142,15 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(0)
                 .Build();
 
             rover.ExecuteCommands("AAAAA");
 
-            Assert.True(rover.GetPosition().GetY() == 0);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetY() == 1);
+            Assert.True(rover.GetPosition().GetX() == 1);
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace Domain.Entities.Tests
         {
             var rover = Rover.Create()
                 .SetLimits(10, 10)
-                .SetPosition(0, 0)
+                .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(5)
                 .Build();
@@ -168,7 +168,7 @@ namespace Domain.Entities.Tests
             rover.ExecuteCommands(commands);
 
             Assert.True(rover.GetPosition().GetY() < commands.Length);
-            Assert.True(rover.GetPosition().GetX() == 0);
+            Assert.True(rover.GetPosition().GetX() == 1);
         }
     }
 }
