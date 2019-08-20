@@ -1,7 +1,9 @@
-﻿namespace Domain.Entities.Fluent.Surface
+﻿using Domain.Entities.Fluent.Rover;
+
+namespace Domain.Entities.Fluent.Surface
 {
     public interface ISurfaceDimension
     {
-        ISurfaceRover SetRover(Entities.Rover rover);
+        ISurfaceRover SetRover(IRover rover);
     }
 }

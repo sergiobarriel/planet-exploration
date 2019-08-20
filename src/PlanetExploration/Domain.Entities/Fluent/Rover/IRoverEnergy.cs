@@ -2,6 +2,6 @@
 {
     public interface IRoverEnergy
     {
-        Entities.Rover Build();
+        IRover Build();
     }
 }

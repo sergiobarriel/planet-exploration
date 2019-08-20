@@ -2,6 +2,6 @@
 {
     public interface ISurfaceRover
     {
-        Entities.Surface Build();
+        ISurface Build();
     }
 }

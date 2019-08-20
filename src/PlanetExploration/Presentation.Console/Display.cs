@@ -1,13 +1,14 @@
 ﻿using System;
-using Domain.Entities;
 using Domain.Entities.Enums;
+using Domain.Entities.Fluent.Rover;
+using Domain.Entities.Fluent.Surface;
 using Domain.Entities.Terrain;
 
 namespace Presentation.Console
 {
     public static class Display
     {
-        public static void PrintSurface(Surface surface)
+        public static void PrintSurface(ISurface surface)
         {
             System.Console.Clear();
 
@@ -40,9 +41,9 @@ namespace Presentation.Console
                                 break;
                         }
                     }
-                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Sand) PrintSand();
-                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Rock) PrintRock();
-                    
+                    else if (quadrant.GetObject() is Sand) PrintSand();
+                    else if (quadrant.GetObject() is Rock) PrintRock();
+
                 }
 
                 Jump();
@@ -55,10 +56,10 @@ namespace Presentation.Console
                 System.Console.Write("\r\n");
         }
 
-        private static void PrintInfo(Rover rover)
+        private static void PrintInfo(IRover rover)
         {
             Separator();
-            Info($"Energy: {rover.GetEnergy()}");
+            Info($"Energy: {rover.GetEnergy().GetLoad()}");
             Info($"Direction: {rover.GetDirection()}");
             Info($"X position: {rover.GetPosition().GetX()}");
             Info($"Y position: {rover.GetPosition().GetY()}");

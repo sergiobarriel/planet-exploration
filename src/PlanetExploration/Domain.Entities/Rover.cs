@@ -14,7 +14,7 @@ namespace Domain.Entities
 
         public Point GetPosition() => Position;
         public Direction GetDirection() => Direction;
-        public decimal GetEnergy() => Energy.GetEnergy();
+        public Energy GetEnergy() => Energy;
 
         private Rover() { }
 
@@ -53,7 +53,7 @@ namespace Domain.Entities
             return this;
         }
 
-        public Rover Build() => this;
+        public IRover Build() => this;
 
         public void ExecuteCommands(string commands)
         {

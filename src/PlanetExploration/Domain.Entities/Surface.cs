@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Entities.Fluent.Rover;
 using Domain.Entities.Fluent.Surface;
 using Random = Domain.Entities.Utils.Random;
 
@@ -9,7 +10,7 @@ namespace Domain.Entities
     public class Surface : ISurface
     {
         private HashSet<Quadrant> Quadrants { get; set; }
-        private Rover Rover { get; set; }
+        private IRover Rover { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
 
@@ -35,13 +36,13 @@ namespace Domain.Entities
             return this;
         }
 
-        public ISurfaceRover SetRover(Rover rover)
+        public ISurfaceRover SetRover(IRover rover)
         {
             Rover = rover;
             return this;
         }
 
-        public Surface Build()
+        public ISurface Build()
         {
             if (IsReady()) return this;
 
@@ -83,7 +84,7 @@ namespace Domain.Entities
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;
-        public Rover GetRover() => Rover;
+        public IRover GetRover() => Rover;
 
         /// <summary>
         /// Surface has:
@@ -91,7 +92,7 @@ namespace Domain.Entities
         /// - Quadrants
         /// </summary>
         /// <returns></returns>
-        public bool IsReady() => Width > 0
+        private bool IsReady() => Width > 0
                                  && Height > 0
                                  && Quadrants != null
                                  && Quadrants.Count() == Width * Height;

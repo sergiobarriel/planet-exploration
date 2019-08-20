@@ -10,6 +10,7 @@ namespace Domain.Entities
         {
             Load = energy;
         }
+
         public decimal GetEnergy() => Load;
 
         public void Charge()
@@ -23,5 +24,6 @@ namespace Domain.Entities
         }
 
         public bool HasEnergy() => Load > 0;
+        public decimal GetLoad() => Load;
     }
 }
