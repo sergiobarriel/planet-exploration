@@ -40,6 +40,10 @@ namespace Domain.Entities
         public ISurfaceRover SetRover(IRover rover)
         {
             Rover = rover;
+
+            // TODO
+            // Propagate data from surface to rover here?
+
             return this;
         }
 

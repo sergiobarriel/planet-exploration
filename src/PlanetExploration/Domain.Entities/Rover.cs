@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Abstractions.Energy;
+﻿using System.Collections.Generic;
+using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Enums;
@@ -7,6 +8,7 @@ namespace Domain.Entities
 {
     public class Rover : IRover
     {
+        private IList<char> Commands { get; set; }
         private IPoint Position { get; set; }
         private Direction Direction { get; set; }
         private IEnergy Energy { get; set; }
@@ -18,7 +20,10 @@ namespace Domain.Entities
         public Direction GetDirection() => Direction;
         public IEnergy GetEnergy() => Energy;
 
-        private Rover() { }
+        private Rover()
+        {
+            Commands = new List<char>();
+        }
 
         public static IRoverInstance Create() => new Rover();
 
@@ -75,6 +80,8 @@ namespace Domain.Entities
             if (command.Equals('R')) TurnRight();
             if (command.Equals('L')) TurnLeft();
             if (command.Equals('D')) Drill();
+
+            Commands.Add(command);
         }
 
         public void Advance()
