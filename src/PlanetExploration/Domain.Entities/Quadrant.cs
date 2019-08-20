@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Abstractions;
+﻿using System;
+using Domain.Entities.Abstractions;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Quadrant;
 using Domain.Entities.Terrain;
@@ -10,7 +11,7 @@ namespace Domain.Entities
         public IPoint Point { get; set; }
         private ITerrain Terrain { get; set; }
 
-        private Quadrant() {}
+        private Quadrant() { }
 
         public ITerrain GetObject() => Terrain;
         public IPoint GetPoint() => Point;
@@ -19,6 +20,9 @@ namespace Domain.Entities
 
         public IQuadrantPosition SetPosition(int x, int y)
         {
+            if (x <= 0) throw new Exception($"{nameof(x)} must be greater than zero.");
+            if (y <= 0) throw new Exception($"{nameof(y)} must be greater than zero.");
+
             Point = Entities.Point.Create(x, y).Build();
 
             return this;
