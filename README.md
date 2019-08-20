@@ -1,4 +1,4 @@
-# Planet exploration
+# :alien: Planet exploration
 
 Mini game based on [Mars Rover](http://kata-log.rocks/mars-rover-kata) Kata
 
