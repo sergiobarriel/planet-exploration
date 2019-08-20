@@ -2,6 +2,6 @@
 {
     public interface IQuadrantTerrain
     {
-        Entities.Quadrant Build();
+        IQuadrant Build();
     }
 }

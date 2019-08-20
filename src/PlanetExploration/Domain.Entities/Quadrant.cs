@@ -12,6 +12,7 @@ namespace Domain.Entities
         private Quadrant() {}
 
         public ITerrain GetObject() => Terrain;
+        public Point GetPoint() => Point;
 
         public static IQuadrantInstance Create() => new Quadrant();
 
@@ -37,7 +38,7 @@ namespace Domain.Entities
             return this;
         }
 
-        public Quadrant Build() => this;
+        public IQuadrant Build() => this;
 
     }
 }

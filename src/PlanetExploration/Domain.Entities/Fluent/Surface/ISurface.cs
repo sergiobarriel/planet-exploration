@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Fluent.Rover;
+﻿using Domain.Entities.Fluent.Quadrant;
+using Domain.Entities.Fluent.Rover;
 
 namespace Domain.Entities.Fluent.Surface
 {
@@ -7,6 +8,6 @@ namespace Domain.Entities.Fluent.Surface
         int GetWidth();
         int GetHeight();
         IRover GetRover();
-        Entities.Quadrant GetQuadrant(int x, int y);
+        IQuadrant GetQuadrant(int x, int y);
     }
 }

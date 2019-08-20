@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Entities.Fluent.Quadrant;
 using Domain.Entities.Fluent.Rover;
 using Domain.Entities.Fluent.Surface;
 using Random = Domain.Entities.Utils.Random;
@@ -9,12 +10,12 @@ namespace Domain.Entities
 {
     public class Surface : ISurface
     {
-        private HashSet<Quadrant> Quadrants { get; set; }
+        private HashSet<IQuadrant> Quadrants { get; set; }
         private IRover Rover { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
 
-        private Surface() => Quadrants = new HashSet<Quadrant>();
+        private Surface() => Quadrants = new HashSet<IQuadrant>();
 
         public static ISurfaceInstance Create() => new Surface();
 
@@ -79,8 +80,8 @@ namespace Domain.Entities
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public Quadrant GetQuadrant(int x, int y) => Quadrants.FirstOrDefault(quadrant => quadrant.Point.GetX() == x
-                                                                                          && quadrant.Point.GetY() == y);
+        public IQuadrant GetQuadrant(int x, int y) => Quadrants.FirstOrDefault(quadrant => quadrant.GetPoint().GetX() == x
+                                                                                          && quadrant.GetPoint().GetY() == y);
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;
