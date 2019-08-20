@@ -14,6 +14,7 @@ namespace Domain.Entities
 
         public Point GetPosition() => Position;
         public Direction GetDirection() => Direction;
+        public decimal GetEnergy() => Energy.GetEnergy();
 
         private Rover() { }
 

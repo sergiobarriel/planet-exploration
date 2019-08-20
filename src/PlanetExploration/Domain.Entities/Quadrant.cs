@@ -7,9 +7,11 @@ namespace Domain.Entities
     public class Quadrant : IQuadrant
     {
         public Point Point { get; set; }
-        private ITerrain Object { get; set; }
+        private ITerrain Terrain { get; set; }
 
         private Quadrant() {}
+
+        public ITerrain GetObject() => Terrain;
 
         public static IQuadrantInstance Create() => new Quadrant();
 
@@ -25,10 +27,10 @@ namespace Domain.Entities
             switch (terrain)
             {
                 case Enums.Terrain.Sand:
-                    Object = new Sand();
+                    Terrain = new Sand();
                     break;
                 case Enums.Terrain.Rock:
-                    Object = new Rock();
+                    Terrain = new Rock();
                     break;
             }
 

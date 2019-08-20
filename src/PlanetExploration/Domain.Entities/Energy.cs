@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using Domain.Entities.Enums;
+
+namespace Domain.Entities
 {
     public class Energy
     {
@@ -8,6 +10,7 @@
         {
             Load = energy;
         }
+        public decimal GetEnergy() => Load;
 
         public void Charge()
         {
