@@ -3,5 +3,6 @@
     public interface ITerrain
     {
         bool IsObstacle { get; set; }
+        bool HasWater { get; set; }
     }
 }
