@@ -1,6 +1,6 @@
 ﻿using Domain.Entities.Enums;
 
-namespace Domain.Entities.Fluent.Rover
+namespace Domain.Entities.Abstractions.Rover
 {
     public interface IRover : IRoverDirection, IRoverEnergy, IRoverInstance, IRoverLimit, IRoverPosition
     {

@@ -1,7 +1,7 @@
 ﻿using System;
+using Domain.Entities.Abstractions.Rover;
+using Domain.Entities.Abstractions.Surface;
 using Domain.Entities.Enums;
-using Domain.Entities.Fluent.Rover;
-using Domain.Entities.Fluent.Surface;
 using Domain.Entities.Terrain;
 
 namespace Presentation.Console

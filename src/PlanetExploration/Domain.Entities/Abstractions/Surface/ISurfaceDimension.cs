@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Fluent.Rover;
+﻿using Domain.Entities.Abstractions.Rover;
 
-namespace Domain.Entities.Fluent.Surface
+namespace Domain.Entities.Abstractions.Surface
 {
     public interface ISurfaceDimension
     {

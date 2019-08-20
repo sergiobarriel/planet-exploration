@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Enums;
-
-namespace Domain.Entities.Fluent.Quadrant
+﻿namespace Domain.Entities.Abstractions.Quadrant
 {
     public interface IQuadrantPosition
     {

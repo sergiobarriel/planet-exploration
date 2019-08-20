@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Fluent.Rover
+﻿namespace Domain.Entities.Abstractions.Rover
 {
     public interface IRoverEnergy
     {

@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Enums;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Energy
     {

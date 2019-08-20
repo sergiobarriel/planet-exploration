@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Abstractions;
-using Domain.Entities.Fluent.Quadrant;
+using Domain.Entities.Abstractions.Quadrant;
 using Domain.Entities.Terrain;
 
 namespace Domain.Entities

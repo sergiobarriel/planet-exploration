@@ -1,7 +1,7 @@
-﻿using Domain.Entities.Fluent.Quadrant;
-using Domain.Entities.Fluent.Rover;
+﻿using Domain.Entities.Abstractions.Quadrant;
+using Domain.Entities.Abstractions.Rover;
 
-namespace Domain.Entities.Fluent.Surface
+namespace Domain.Entities.Abstractions.Surface
 {
     public interface ISurface: ISurfaceInstance, ISurfaceDimension, ISurfaceRover
     {

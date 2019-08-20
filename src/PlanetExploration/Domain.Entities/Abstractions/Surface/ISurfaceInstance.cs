@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Fluent.Surface
+﻿namespace Domain.Entities.Abstractions.Surface
 {
     public interface ISurfaceInstance
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Entities.Fluent.Quadrant;
-using Domain.Entities.Fluent.Rover;
-using Domain.Entities.Fluent.Surface;
+using Domain.Entities.Abstractions.Quadrant;
+using Domain.Entities.Abstractions.Rover;
+using Domain.Entities.Abstractions.Surface;
 using Random = Domain.Entities.Utils.Random;
 
 namespace Domain.Entities

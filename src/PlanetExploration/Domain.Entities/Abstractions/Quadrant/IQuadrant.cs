@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Abstractions;
-
-namespace Domain.Entities.Fluent.Quadrant
+﻿namespace Domain.Entities.Abstractions.Quadrant
 {
     public interface IQuadrant : IQuadrantInstance, IQuadrantPosition, IQuadrantTerrain
     {

@@ -1,5 +1,5 @@
-﻿using Domain.Entities.Enums;
-using Domain.Entities.Fluent.Rover;
+﻿using Domain.Entities.Abstractions.Rover;
+using Domain.Entities.Enums;
 
 namespace Domain.Entities
 {
