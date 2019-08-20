@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Domain.Entities.Enums;
 using Domain.Entities.Fluent.Surface;
-using Domain.Entities.Terrain;
 
 namespace Domain.Entities
 {
-    public class Surface: ISurface
+    public class Surface : ISurface
     {
         private HashSet<Quadrant> Quadrants { get; set; }
         private Rover Rover { get; set; }
@@ -28,10 +27,10 @@ namespace Domain.Entities
             Width = width <= 0 ? 10 : width;
             Height = height <= 0 ? 10 : height;
 
-            for (var w = 0; w < Width; w++)
-                for (var h = 0; h < Height; h++)
+            for (var w = 1; w <= Width; w++)
+                for (var h = 1; h <= Height; h++)
                     AddQuadrant(w, h);
-            
+
             return this;
         }
 
@@ -43,7 +42,9 @@ namespace Domain.Entities
 
         public Surface Build()
         {
-            return this;
+            if (IsReady()) return this;
+
+            throw new Exception("Invalid surface");
         }
 
         /// <summary>
@@ -70,12 +71,18 @@ namespace Domain.Entities
             }
         }
 
-        public Rover GetRover() => Rover;
-
-        public Quadrant GetQuadrant(int x, int y) => Quadrants.FirstOrDefault(quadrant => quadrant.Point.GetX() == x && quadrant.Point.GetY() == y);
+        /// <summary>
+        /// Return quadrant based on specific cartesian coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Quadrant GetQuadrant(int x, int y) => Quadrants.FirstOrDefault(quadrant => quadrant.Point.GetX() == x
+                                                                                          && quadrant.Point.GetY() == y);
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;
+        public Rover GetRover() => Rover;
 
         /// <summary>
         /// Surface has:
