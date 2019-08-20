@@ -1,20 +1,22 @@
-﻿using Domain.Entities.Abstractions.Rover;
+﻿using Domain.Entities.Abstractions.Energy;
+using Domain.Entities.Abstractions.Point;
+using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Enums;
 
 namespace Domain.Entities
 {
     public class Rover : IRover
     {
-        private Point Position { get; set; }
+        private IPoint Position { get; set; }
         private Direction Direction { get; set; }
-        private Energy Energy { get; set; }
+        private IEnergy Energy { get; set; }
 
         private int MaxWidthSurface { get; set; }
         private int MaxHeightSurface { get; set; }
 
-        public Point GetPosition() => Position;
+        public IPoint GetPosition() => Position;
         public Direction GetDirection() => Direction;
-        public Energy GetEnergy() => Energy;
+        public IEnergy GetEnergy() => Energy;
 
         private Rover() { }
 
@@ -36,7 +38,7 @@ namespace Domain.Entities
             if (y < 1) y = 1;
             if (y > MaxHeightSurface) y = MaxHeightSurface;
 
-            Position = new Point(x, y);
+            Position = Point.Create(x, y).Build();
 
             return this;
         }
@@ -49,7 +51,8 @@ namespace Domain.Entities
 
         public IRoverEnergy SetEnergy(decimal energy)
         {
-            Energy = new Energy(energy);
+            Energy = Entities.Energy.Create(energy).Build();
+
             return this;
         }
 

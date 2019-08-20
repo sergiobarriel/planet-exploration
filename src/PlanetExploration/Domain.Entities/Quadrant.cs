@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Abstractions;
+using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Quadrant;
 using Domain.Entities.Terrain;
 
@@ -6,19 +7,19 @@ namespace Domain.Entities
 {
     public class Quadrant : IQuadrant
     {
-        public Point Point { get; set; }
+        public IPoint Point { get; set; }
         private ITerrain Terrain { get; set; }
 
         private Quadrant() {}
 
         public ITerrain GetObject() => Terrain;
-        public Point GetPoint() => Point;
+        public IPoint GetPoint() => Point;
 
         public static IQuadrantInstance Create() => new Quadrant();
 
         public IQuadrantPosition SetPosition(int x, int y)
         {
-            Point = new Point(x, y);
+            Point = Entities.Point.Create(x, y).Build();
 
             return this;
         }

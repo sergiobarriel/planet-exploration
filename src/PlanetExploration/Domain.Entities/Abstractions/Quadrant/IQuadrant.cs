@@ -1,8 +1,10 @@
-﻿namespace Domain.Entities.Abstractions.Quadrant
+﻿using Domain.Entities.Abstractions.Point;
+
+namespace Domain.Entities.Abstractions.Quadrant
 {
     public interface IQuadrant : IQuadrantInstance, IQuadrantPosition, IQuadrantTerrain
     {
         ITerrain GetObject();
-        Point GetPoint();
+        IPoint GetPoint();
     }
 }

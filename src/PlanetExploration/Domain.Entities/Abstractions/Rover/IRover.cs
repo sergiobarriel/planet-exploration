@@ -1,4 +1,6 @@
-﻿using Domain.Entities.Enums;
+﻿using Domain.Entities.Abstractions.Energy;
+using Domain.Entities.Abstractions.Point;
+using Domain.Entities.Enums;
 
 namespace Domain.Entities.Abstractions.Rover
 {
@@ -9,10 +11,11 @@ namespace Domain.Entities.Abstractions.Rover
         void TurnLeft();
         void TurnRight();
         void Drill();
+
         void ExecuteCommands(string commands);
 
-        Point GetPosition();
+        IPoint GetPosition();
         Direction GetDirection();
-        Energy GetEnergy();
+        IEnergy GetEnergy();
     }
 }
