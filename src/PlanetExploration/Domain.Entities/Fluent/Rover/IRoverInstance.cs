@@ -2,6 +2,6 @@
 {
     public interface IRoverInstance
     {
-        IRoverLimit SetLimits(int width, int heigth);
+        IRoverLimit SetLimits(int width, int height);
     }
 }

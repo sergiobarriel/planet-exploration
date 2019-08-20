@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities.Fluent.Surface;
+using Random = Domain.Entities.Utils.Random;
 
 namespace Domain.Entities
 {

@@ -76,98 +76,94 @@ namespace Domain.Entities
 
         public void Advance()
         {
-            if (Energy.HasEnergy())
-            {
-                switch (Direction)
-                {
-                    case Direction.North:
-                        Position.Increase(Axis.Y, MaxHeightSurface);
-                        break;
-                    case Direction.South:
-                        Position.Decrease(Axis.Y);
-                        break;
-                    case Direction.East:
-                        Position.Increase(Axis.X, MaxWidthSurface);
-                        break;
-                    case Direction.West:
-                        Position.Decrease(Axis.X);
-                        break;
-                }
+            if (!Energy.HasEnergy()) return;
 
-                Energy.Discharge(1);
+            switch (Direction)
+            {
+                case Direction.North:
+                    Position.Increase(Axis.Y, MaxHeightSurface);
+                    break;
+                case Direction.South:
+                    Position.Decrease(Axis.Y);
+                    break;
+                case Direction.East:
+                    Position.Increase(Axis.X, MaxWidthSurface);
+                    break;
+                case Direction.West:
+                    Position.Decrease(Axis.X);
+                    break;
             }
+
+            Energy.Discharge(1);
         }
 
         public void Back()
         {
-            if (Energy.HasEnergy())
-            {
-                switch (Direction)
-                {
-                    case Direction.North:
-                        Position.Decrease(Axis.Y);
-                        break;
-                    case Direction.South:
-                        Position.Increase(Axis.Y, MaxHeightSurface);
-                        break;
-                    case Direction.East:
-                        Position.Decrease(Axis.X);
-                        break;
-                    case Direction.West:
-                        Position.Increase(Axis.X, MaxWidthSurface);
-                        break;
-                }
+            if (!Energy.HasEnergy()) return;
 
-                Energy.Discharge(1);
+            switch (Direction)
+            {
+                case Direction.North:
+                    Position.Decrease(Axis.Y);
+                    break;
+                case Direction.South:
+                    Position.Increase(Axis.Y, MaxHeightSurface);
+                    break;
+                case Direction.East:
+                    Position.Decrease(Axis.X);
+                    break;
+                case Direction.West:
+                    Position.Increase(Axis.X, MaxWidthSurface);
+                    break;
             }
+
+            Energy.Discharge(1);
         }
 
         public void TurnLeft()
         {
-            if (Energy.HasEnergy())
-            {
-                switch (Direction)
-                {
-                    case Direction.North:
-                        Direction = Direction.West;
-                        break;
-                    case Direction.South:
-                        Direction = Direction.East;
-                        break;
-                    case Direction.East:
-                        Direction = Direction.North;
-                        break;
-                    case Direction.West:
-                        Direction = Direction.South;
-                        break;
-                }
+            if (!Energy.HasEnergy()) return;
 
-                Energy.Discharge(0.5m);
+            switch (Direction)
+            {
+                case Direction.North:
+                    Direction = Direction.West;
+                    break;
+                case Direction.South:
+                    Direction = Direction.East;
+                    break;
+                case Direction.East:
+                    Direction = Direction.North;
+                    break;
+                case Direction.West:
+                    Direction = Direction.South;
+                    break;
             }
+
+            Energy.Discharge(0.5m);
         }
 
         public void TurnRight()
         {
-            if (Energy.HasEnergy())
-            {
-                switch (Direction)
-                {
-                    case Direction.North:
-                        Direction = Direction.East;
-                        break;
-                    case Direction.South:
-                        Direction = Direction.West;
-                        break;
-                    case Direction.East:
-                        Direction = Direction.South;
-                        break;
-                    case Direction.West:
-                        Direction = Direction.North;
-                        break;
-                }
+            if (!Energy.HasEnergy()) return;
 
-                Energy.Discharge(0.5m);
+            switch (Direction)
+            {
+                case Direction.North:
+                    Direction = Direction.East;
+                    break;
+                case Direction.South:
+                    Direction = Direction.West;
+                    break;
+                case Direction.East:
+                    Direction = Direction.South;
+                    break;
+                case Direction.West:
+                    Direction = Direction.North;
+                    break;
             }
+
+            Energy.Discharge(0.5m);
         }
 
         public void Drill()
