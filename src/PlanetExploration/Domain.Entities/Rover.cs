@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Entities.Abstractions.Energy;
+﻿using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Enums;

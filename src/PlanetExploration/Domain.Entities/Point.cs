@@ -33,7 +33,6 @@ namespace Domain.Entities
                     break;
             }
         }
-
         public void Decrease(Axis axis)
         {
             switch (axis)
@@ -48,7 +47,5 @@ namespace Domain.Entities
             }
         }
 
-        
-        
     }
 }
