@@ -80,8 +80,14 @@ namespace Domain.Entities
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public IQuadrant GetQuadrant(int x, int y) => Quadrants.FirstOrDefault(quadrant => quadrant.GetPoint().GetX() == x
-                                                                                          && quadrant.GetPoint().GetY() == y);
+        public IQuadrant GetQuadrant(int x, int y)
+        {
+            var element = Quadrants.FirstOrDefault(quadrant => quadrant.GetPoint().GetX() == x && quadrant.GetPoint().GetY() == y);
+
+            if (element != null) return element;
+
+            throw new Exception($"{nameof(Quadrant)} ({x},{y}) not found.");
+        }
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;
