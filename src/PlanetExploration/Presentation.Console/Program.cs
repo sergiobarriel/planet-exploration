@@ -5,13 +5,13 @@ namespace Presentation.Console
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var surface = Surface.Create()
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
                     .SetLimits(15, 15)
-                    .SetPosition(2, 2)
+                    .SetPosition(5, 5)
                     .SetDirection(Direction.North)
                     .SetEnergy(100)
                     .Build())
@@ -21,15 +21,15 @@ namespace Presentation.Console
 
             while (true)
             {
-                System.Console.WriteLine("Enter commands: ");
+                Display.Jump();
+
+                System.Console.Write("Enter commands: ");
                 var commands = System.Console.ReadLine();
 
                 surface.GetRover().ExecuteCommands(commands);
 
                 Display.PrintSurface(surface);
-                Display.PrintRover(surface.GetRover());
             }
-
         }
     }
 }

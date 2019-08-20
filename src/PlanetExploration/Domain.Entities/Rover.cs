@@ -28,12 +28,12 @@ namespace Domain.Entities
             return this;
         }
 
-        public IRoverPosition SetPosition(int x, int y)
+        public IRoverPosition SetPosition(int x = 1, int y = 1)
         {
-            if (x < 0) x = 0;
+            if (x < 1) x = 1;
             if (x > MaxWidthSurface) x = MaxWidthSurface;
 
-            if (y < 0) y = 0;
+            if (y < 1) y = 1;
             if (y > MaxHeightSurface) y = MaxHeightSurface;
 
             Position = new Point(x, y);
@@ -71,6 +71,7 @@ namespace Domain.Entities
             if (command.Equals('B')) Back();
             if (command.Equals('R')) TurnRight();
             if (command.Equals('L')) TurnLeft();
+            if (command.Equals('D')) Drill();
         }
 
         public void Advance()

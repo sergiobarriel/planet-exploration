@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Entities.Enums;
 using Domain.Entities.Terrain;
 
@@ -10,9 +11,13 @@ namespace Presentation.Console
         {
             System.Console.Clear();
 
-            for (var height = surface.GetHeight() - 1; height >= 1; height--)
+            SetConsoleDefaults();
+
+            PrintInfo(surface.GetRover());
+
+            for (var height = surface.GetHeight(); height >= 1; height--)
             {
-                for (var width = 1; width <= surface.GetWidth() - 1; width++)
+                for (var width = 1; width <= surface.GetWidth(); width++)
                 {
                     var quadrant = surface.GetQuadrant(width, height);
 
@@ -22,42 +27,82 @@ namespace Presentation.Console
                         switch (surface.GetRover().GetDirection())
                         {
                             case Direction.North:
-                                System.Console.Write("N ");
+                                PrintRover("N");
                                 break;
                             case Direction.South:
-                                System.Console.Write("S ");
+                                PrintRover("S");
                                 break;
                             case Direction.East:
-                                System.Console.Write("E ");
+                                PrintRover("E");
                                 break;
                             case Direction.West:
-                                System.Console.Write("W ");
+                                PrintRover("W");
                                 break;
                         }
                     }
-                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Sand)
-                    {
-                        System.Console.Write("X ");
-                    }
-
-                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Rock)
-                    {
-                        System.Console.Write("R ");
-                    }
+                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Sand) PrintSand();
+                    else if (quadrant.GetObject() != null && quadrant.GetObject() is Rock) PrintRock();
+                    
                 }
-                System.Console.Write("\r\n");
+
+                Jump();
             }
         }
 
-        public static void PrintRover(Rover rover)
+        public static void Jump(int amount = 1)
         {
-            System.Console.Write("\r\n");
-            System.Console.WriteLine($"-------------------");
-            System.Console.WriteLine($"Energy: {rover.GetEnergy()}");
-            System.Console.WriteLine($"Direction: {rover.GetDirection()}");
-            System.Console.WriteLine($"X position: {rover.GetPosition().GetX()}");
-            System.Console.WriteLine($"Y position: {rover.GetPosition().GetY()}");
-            System.Console.WriteLine($"-------------------");
+            for (var i = 0; i < amount; i++)
+                System.Console.Write("\r\n");
         }
+
+        private static void PrintInfo(Rover rover)
+        {
+            Separator();
+            Info($"Energy: {rover.GetEnergy()}");
+            Info($"Direction: {rover.GetDirection()}");
+            Info($"X position: {rover.GetPosition().GetX()}");
+            Info($"Y position: {rover.GetPosition().GetY()}");
+            Separator();
+            Jump();
+        }
+
+
+        private static void SameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        {
+            SetConsoleColor(foreColor, backgroundColor);
+
+            System.Console.Write($" {value} ");
+
+            SetConsoleDefaults();
+        }
+
+        private static void NewLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        {
+            SetConsoleColor(foreColor, backgroundColor);
+
+            System.Console.WriteLine($" {value} ");
+
+            SetConsoleDefaults();
+        }
+
+        private static void SetConsoleColor(ConsoleColor foreColor, ConsoleColor backgroundColor)
+        {
+            System.Console.ForegroundColor = foreColor;
+            System.Console.BackgroundColor = backgroundColor;
+        }
+
+        private static void SetConsoleDefaults()
+        {
+            System.Console.ForegroundColor = ConsoleColor.White;
+            System.Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+
+        private static void PrintRover(string direction) => SameLine($"{direction}", ConsoleColor.Black, ConsoleColor.White);
+        private static void PrintSand() => SameLine($"S");
+        private static void PrintRock() => SameLine($"R", ConsoleColor.White, ConsoleColor.DarkGray);
+
+        private static void Separator() => NewLine($"-----------------");
+        private static void Info(string info) => NewLine(info);
     }
 }

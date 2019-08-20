@@ -41,13 +41,13 @@ namespace Domain.Entities
             {
                 case Axis.X:
 
-                    if (X > 0) X--;
+                    if (X > 1) X--;
 
                     break;
 
                 case Axis.Y:
 
-                    if (Y > 0) Y--;
+                    if (Y > 1) Y--;
 
                     break;
             }
