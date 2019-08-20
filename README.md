@@ -1,6 +1,6 @@
 # Planet exploration
 
-Mini game based on [Mars rover](http://kata-log.rocks/mars-rover-kata) kata
+Mini game based on [Mars Rover](http://kata-log.rocks/mars-rover-kata) Kata
 
 ![screenshot](https://github.com/sergiobarriel/planet-exploration/blob/master/images/screenshot.PNG)
 
