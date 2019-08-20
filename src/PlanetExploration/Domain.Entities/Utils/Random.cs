@@ -14,11 +14,11 @@
             return random < 50;
         }
 
-        public static bool GetRandom(int trueWeight)
+        public static bool GetRandom(int weight)
         {
             var random = GetRandom(1, 100);
 
-            if (random < trueWeight) return true;
+            if (random < weight) return true;
 
             return false;
         }

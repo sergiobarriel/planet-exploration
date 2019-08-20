@@ -29,7 +29,7 @@ namespace Domain.Entities.Tests
 
             Assert.True(quadrant.GetPoint().GetX() == 1);
             Assert.True(quadrant.GetPoint().GetY() == 1);
-            Assert.True(quadrant.GetObject() is ITerrain);
+            Assert.True(quadrant.GetObject() != null && quadrant.GetObject() is Rock);
         }
     }
 }

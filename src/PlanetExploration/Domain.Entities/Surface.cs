@@ -58,7 +58,7 @@ namespace Domain.Entities
         /// <param name="h"></param>
         private void AddQuadrant(int w, int h)
         {
-            if (Random.GetRandom(trueWeight: 90))
+            if (Random.GetRandom(weight: 90))
             {
                 Quadrants.Add(Quadrant.Create()
                     .SetPosition(w, h)
@@ -93,8 +93,8 @@ namespace Domain.Entities
         /// - Quadrants
         /// </summary>
         /// <returns></returns>
-        private bool IsReady() => Width > 0
-                                 && Height > 0
+        private bool IsReady() => Width >= 10
+                                 && Height >= 10
                                  && Quadrants != null
                                  && Quadrants.Count() == Width * Height;
 
