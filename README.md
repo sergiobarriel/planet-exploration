@@ -7,3 +7,6 @@ Mini game based on [Mars Rover](http://kata-log.rocks/mars-rover-kata) Kata
 ### Pending work
 - Rover cannot pass over a rock
 - Rover can drill a rock
+
+### Contact
+You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)
