@@ -15,6 +15,7 @@ namespace Domain.Entities
 
         public ITerrain GetObject() => Terrain;
         public IPoint GetPoint() => Point;
+        public void DrillQuadrant() => Terrain = new Sand();
 
         public static IQuadrantInstance Create() => new Quadrant();
 

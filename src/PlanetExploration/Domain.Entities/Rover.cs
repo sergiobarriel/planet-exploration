@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
+using Domain.Entities.Abstractions.Quadrant;
 using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Abstractions.Surface;
 using Domain.Entities.Enums;
+using Domain.Entities.Terrain;
 
 namespace Domain.Entities
 {
@@ -258,10 +260,70 @@ namespace Domain.Entities
         {
             if (Energy.HasSpecificEnergy(2m))
             {
-                // TODO... 
+                var quadrant = GetAdjoiningQuadrant();
 
-                Energy.Discharge(2m);
+                if (!(quadrant is null))
+                {
+                    var @object = quadrant.GetObject();
+
+                    if (@object is Rock)
+                    {
+                        if (@object.HasWater)
+                        {
+                            // TODO: What's happens?                            
+                        }
+
+                        quadrant.DrillQuadrant();
+                        Energy.Discharge(2m);
+                    }
+                    else
+                    {
+                        Energy.Discharge(1m);
+                    }
+
+                }
+                else
+                {
+                    Energy.Discharge(1m);
+                }
+
             }
+        }
+
+
+        private IQuadrant GetAdjoiningQuadrant()
+        {
+            IQuadrant quadrant = null;
+
+            switch (Direction)
+            {
+                case Direction.North:
+
+                    if(Position.GetY() < Surface.GetHeight())
+                        quadrant = Surface.GetQuadrant(Position.GetX(), Position.GetY() + 1);
+
+                    break;
+                case Direction.South:
+
+                    if (Position.GetY() > 1)
+                        quadrant = Surface.GetQuadrant(Position.GetX(), Position.GetY() - 1);
+
+                    break;
+                case Direction.East:
+
+                    if (Position.GetX() < Surface.GetWidth())
+                        quadrant = Surface.GetQuadrant(Position.GetX() + 1, Position.GetY());
+
+                    break;
+                case Direction.West:
+
+                    if (Position.GetX() > 1)
+                        quadrant = Surface.GetQuadrant(Position.GetX() - 1, Position.GetY());
+
+                    break;
+            }
+
+            return quadrant;
         }
 
 

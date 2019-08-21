@@ -100,7 +100,7 @@ namespace Presentation.Console
 
 
         private static void PrintRover(string direction) => SameLine($"{direction}", ConsoleColor.Black, ConsoleColor.White);
-        private static void PrintSand() => SameLine($"S");
+        private static void PrintSand() => SameLine($"s");
         private static void PrintRock() => SameLine($"R", ConsoleColor.White, ConsoleColor.DarkGray);
 
         private static void Separator() => NewLine($"-----------------");

@@ -6,5 +6,6 @@ namespace Domain.Entities.Abstractions.Quadrant
     {
         ITerrain GetObject();
         IPoint GetPoint();
+        void DrillQuadrant();
     }
 }
