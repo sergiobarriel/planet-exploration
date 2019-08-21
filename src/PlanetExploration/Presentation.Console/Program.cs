@@ -11,8 +11,6 @@ namespace Presentation.Console
                 .WithObstacles(weight: 10)
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
-                    .SetLimits(15, 15)
-                    .SetPosition(5, 5)
                     .SetDirection(Direction.North)
                     .SetEnergy(100)
                     .Build())

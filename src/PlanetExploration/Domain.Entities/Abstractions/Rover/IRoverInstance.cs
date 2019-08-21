@@ -1,7 +1,9 @@
-﻿namespace Domain.Entities.Abstractions.Rover
+﻿using Domain.Entities.Enums;
+
+namespace Domain.Entities.Abstractions.Rover
 {
     public interface IRoverInstance
     {
-        IRoverLimit SetLimits(int width, int height);
+        IRoverDirection SetDirection(Direction direction);
     }
 }

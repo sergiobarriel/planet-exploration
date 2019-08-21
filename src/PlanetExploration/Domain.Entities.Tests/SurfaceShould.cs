@@ -8,8 +8,6 @@ namespace Domain.Entities.Tests
     public class SurfaceShould
     {
         private IRover GetDefaultRover() => Rover.Create()
-            .SetLimits(10, 10)
-            .SetPosition(1, 1)
             .SetDirection(Direction.North)
             .SetEnergy(100)
             .Build();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Rover;
@@ -16,9 +17,6 @@ namespace Domain.Entities
         private IEnergy Energy { get; set; }
         private ISurface Surface { get; set; }
 
-        private int MaxWidthSurface { get; set; }
-        private int MaxHeightSurface { get; set; }
-
         public IPoint GetPosition() => Position;
         public Direction GetDirection() => Direction;
         public IEnergy GetEnergy() => Energy;
@@ -29,27 +27,6 @@ namespace Domain.Entities
         }
 
         public static IRoverInstance Create() => new Rover();
-
-        public IRoverLimit SetLimits(int width, int height)
-        {
-            MaxWidthSurface = width;
-            MaxHeightSurface = height;
-
-            return this;
-        }
-
-        public IRoverPosition SetPosition(int x = 1, int y = 1)
-        {
-            if (x < 1) x = 1;
-            if (x > MaxWidthSurface) x = MaxWidthSurface;
-
-            if (y < 1) y = 1;
-            if (y > MaxHeightSurface) y = MaxHeightSurface;
-
-            Position = Point.Create(x, y).Build();
-
-            return this;
-        }
 
         public IRoverDirection SetDirection(Direction direction)
         {
@@ -75,9 +52,25 @@ namespace Domain.Entities
         {
             if (surface is null) throw new Exception($"Rover must contain Surface");
 
-            if (Surface is null) Surface = surface;
+            if (Surface is null)
+            {
+                Surface = surface;
+                SetRoverInFreeRandomPosition();
+            }
 
             return this;
+        }
+
+        /// <summary>
+        /// Get all free quadrants and set rover y random position
+        /// </summary>
+        private void SetRoverInFreeRandomPosition()
+        {
+            var freeQuadrants = Surface.GetFreeQuadrantsForRover();
+
+            var quadrant = freeQuadrants.ElementAt(Utils.Random.GetRandom(0, freeQuadrants.Count() - 1));
+
+            Position = Point.Create(quadrant.GetPoint().GetX(), quadrant.GetPoint().GetY()).Build();
         }
 
         public void ExecuteCommands(string commands)
@@ -112,7 +105,7 @@ namespace Domain.Entities
             var x = axis == Axis.X ? Position.GetX() + increment : Position.GetX();
             var y = axis == Axis.Y ? Position.GetY() + increment : Position.GetY();
 
-            if (x >= 1 && y >= 1 && x <= MaxWidthSurface && y <= MaxHeightSurface)
+            if (x >= 1 && y >= 1 && x <= Surface.GetWidth() && y <= Surface.GetHeight())
             {
                 var quadrant = Surface.GetQuadrant(x, y);
 
@@ -135,7 +128,7 @@ namespace Domain.Entities
 
                     if (!NextPositionIsObstacle(Axis.Y, 1))
                     {
-                        Position.Increase(Axis.Y, MaxHeightSurface);
+                        Position.Increase(Axis.Y, Surface.GetHeight());
                         Energy.Discharge(1m);
                     }
                     break;
@@ -153,7 +146,7 @@ namespace Domain.Entities
 
                     if (!NextPositionIsObstacle(Axis.X, 1))
                     {
-                        Position.Increase(Axis.X, MaxWidthSurface);
+                        Position.Increase(Axis.X, Surface.GetWidth());
                         Energy.Discharge(1m);
                     }
                     break;
@@ -190,7 +183,7 @@ namespace Domain.Entities
                     
                     if (!NextPositionIsObstacle(Axis.Y, 1))
                     {
-                        Position.Increase(Axis.Y, MaxHeightSurface);
+                        Position.Increase(Axis.Y, Surface.GetHeight());
                         Energy.Discharge(1);
                     }
                     break;
@@ -208,7 +201,7 @@ namespace Domain.Entities
 
                     if (!NextPositionIsObstacle(Axis.X, 1))
                     {
-                        Position.Increase(Axis.X, MaxWidthSurface);
+                        Position.Increase(Axis.X, Surface.GetWidth());
                         Energy.Discharge(1);
                     }
                     break;

@@ -22,10 +22,10 @@ namespace Domain.Entities
 
         /// <summary>
         /// Set surface dimension and create all quadrants with objects inside
+        /// At least, surface must contains one free terrain to place rover
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="withObstacles"></param>
         /// <returns></returns>
         public ISurfaceDimension SetDimension(int width = 10, int height = 10)
         {
@@ -35,6 +35,11 @@ namespace Domain.Entities
             for (var w = 1; w <= Width; w++)
                 for (var h = 1; h <= Height; h++)
                     AddQuadrant(w, h);
+
+            if (!GetFreeQuadrantsForRover().Any())
+            {
+                Quadrants.ElementAt(Random.GetRandom(0, Quadrants.Count - 1)).SetTerrain(Enums.Terrain.Sand);
+            }
 
             return this;
         }
@@ -116,6 +121,21 @@ namespace Domain.Entities
         }
 
         public IEnumerable<IQuadrant> GetQuadrants() => Quadrants;
+        public IEnumerable<IQuadrant> GetFreeQuadrants() => Quadrants.Where(quadrant => quadrant.GetObject().IsObstacle == false);
+        public IEnumerable<IQuadrant> GetOccupiedQuadrants() => Quadrants.Where(quadrant => quadrant.GetObject().IsObstacle == true);
+
+        /// <summary>
+        /// Returns free quadrants that are not in the limit to place rover
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IQuadrant> GetFreeQuadrantsForRover()
+        {
+            return Quadrants.Where(quadrant => quadrant.GetObject().IsObstacle == false 
+                                               && quadrant.GetPoint().GetX() != 1 
+                                               && quadrant.GetPoint().GetX() != GetWidth() 
+                                               && quadrant.GetPoint().GetY() != 1 
+                                               && quadrant.GetPoint().GetY() != GetHeight());
+        }
 
         public int GetWidth() => Width;
         public int GetHeight() => Height;

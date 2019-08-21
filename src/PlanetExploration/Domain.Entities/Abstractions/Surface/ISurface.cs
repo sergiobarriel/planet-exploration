@@ -11,5 +11,8 @@ namespace Domain.Entities.Abstractions.Surface
         IRover GetRover();
         IQuadrant GetQuadrant(int x, int y);
         IEnumerable<IQuadrant> GetQuadrants();
+        IEnumerable<IQuadrant> GetFreeQuadrants();
+        IEnumerable<IQuadrant> GetOccupiedQuadrants();
+        IEnumerable<IQuadrant> GetFreeQuadrantsForRover();
     }
 }
