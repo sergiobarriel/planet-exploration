@@ -8,6 +8,7 @@ namespace Presentation.Console
         public static void Main(string[] args)
         {
             var surface = Surface.Create()
+                .WithObstacles()
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
                     .SetLimits(15, 15)
@@ -15,6 +16,7 @@ namespace Presentation.Console
                     .SetDirection(Direction.North)
                     .SetEnergy(100)
                     .Build())
+                
                 .Build();
 
             Display.PrintSurface(surface);

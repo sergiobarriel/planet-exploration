@@ -18,7 +18,7 @@
         {
             var random = GetRandom(1, 100);
 
-            if (random < weight) return true;
+            if (random <= weight) return true;
 
             return false;
         }

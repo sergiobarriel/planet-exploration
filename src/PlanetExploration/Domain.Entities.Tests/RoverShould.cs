@@ -15,6 +15,11 @@ namespace Domain.Entities.Tests
                 .SetEnergy(100)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
 
             rover.ExecuteCommands("AAAAA");
 
@@ -32,6 +37,12 @@ namespace Domain.Entities.Tests
                 .SetEnergy(100)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
             rover.ExecuteCommands("BBBBB");
 
             Assert.True(rover.GetPosition().GetY() == 1);
@@ -46,6 +57,12 @@ namespace Domain.Entities.Tests
                 .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
+                .Build();
+
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
                 .Build();
 
             rover.ExecuteCommands("L");
@@ -71,6 +88,12 @@ namespace Domain.Entities.Tests
                 .SetEnergy(100)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
             rover.ExecuteCommands("R");
             Assert.True(rover.GetDirection() == Direction.East);
 
@@ -94,6 +117,12 @@ namespace Domain.Entities.Tests
                 .SetEnergy(100)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
             rover.ExecuteCommands("ARAARALAA");
             Assert.True(rover.GetPosition().GetY() == 1);
             Assert.True(rover.GetPosition().GetX() == 5);
@@ -115,6 +144,12 @@ namespace Domain.Entities.Tests
                 .SetEnergy(100)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
             rover.ExecuteCommands("AAA");
             Assert.True(rover.GetPosition().GetY() == 1);
             Assert.True(rover.GetPosition().GetX() == 1);
@@ -129,6 +164,12 @@ namespace Domain.Entities.Tests
                 .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(100)
+                .Build();
+
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
                 .Build();
 
             rover.ExecuteCommands("AAAAAAAAAAAAAAA");
@@ -147,6 +188,12 @@ namespace Domain.Entities.Tests
                 .SetEnergy(0)
                 .Build();
 
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
             rover.ExecuteCommands("AAAAA");
 
             Assert.True(rover.GetPosition().GetY() == 1);
@@ -161,6 +208,12 @@ namespace Domain.Entities.Tests
                 .SetPosition(1, 1)
                 .SetDirection(Direction.North)
                 .SetEnergy(5)
+                .Build();
+
+            var surface = Surface.Create()
+                .WithoutObstacles()
+                .SetDimension(10, 10)
+                .SetRover(rover)
                 .Build();
 
             var commands = "AAAAAAAAAA";

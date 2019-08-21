@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Abstractions.Rover;
+using Domain.Entities.Abstractions.Surface;
 using Domain.Entities.Enums;
 
 namespace Domain.Entities
@@ -12,6 +14,7 @@ namespace Domain.Entities
         private IPoint Position { get; set; }
         private Direction Direction { get; set; }
         private IEnergy Energy { get; set; }
+        private ISurface Surface { get; set; }
 
         private int MaxWidthSurface { get; set; }
         private int MaxHeightSurface { get; set; }
@@ -63,6 +66,20 @@ namespace Domain.Entities
 
         public IRover Build() => this;
 
+        /// <summary>
+        /// Set parent surface on rover
+        /// </summary>
+        /// <param name="surface"></param>
+        /// <returns></returns>
+        public IRover SetSurface(ISurface surface)
+        {
+            if (surface is null) throw new Exception($"Rover must contain Surface");
+
+            if (Surface is null) Surface = surface;
+
+            return this;
+        }
+
         public void ExecuteCommands(string commands)
         {
             foreach (var command in commands.ToUpper().ToCharArray())
@@ -84,6 +101,30 @@ namespace Domain.Entities
             Commands.Add(command);
         }
 
+        /// <summary>
+        /// Check that next position of rover has a obstacle
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <param name="increment"></param>
+        /// <returns></returns>
+        private bool NextPositionIsObstacle(Axis axis, int increment)
+        {
+            var x = axis == Axis.X ? Position.GetX() + increment : Position.GetX();
+            var y = axis == Axis.Y ? Position.GetY() + increment : Position.GetY();
+
+            if (x >= 1 && y >= 1 && x <= MaxWidthSurface && y <= MaxHeightSurface)
+            {
+                var quadrant = Surface.GetQuadrant(x, y);
+
+                if (quadrant != null)
+                {
+                    return quadrant.GetObject().IsObstacle;
+                }
+            }
+
+            return true;
+        }
+
         public void Advance()
         {
             if (!Energy.HasEnergy()) return;
@@ -91,20 +132,43 @@ namespace Domain.Entities
             switch (Direction)
             {
                 case Direction.North:
-                    Position.Increase(Axis.Y, MaxHeightSurface);
+
+                    if (!NextPositionIsObstacle(Axis.Y, 1))
+                    {
+                        Position.Increase(Axis.Y, MaxHeightSurface);
+                        Energy.Discharge(1m);
+                    }
                     break;
+
                 case Direction.South:
-                    Position.Decrease(Axis.Y);
+
+                    if (!NextPositionIsObstacle(Axis.Y, -1))
+                    {
+                        Position.Decrease(Axis.Y);
+                        Energy.Discharge(1m);
+                    }
                     break;
+
                 case Direction.East:
-                    Position.Increase(Axis.X, MaxWidthSurface);
+
+                    if (!NextPositionIsObstacle(Axis.X, 1))
+                    {
+                        Position.Increase(Axis.X, MaxWidthSurface);
+                        Energy.Discharge(1m);
+                    }
                     break;
+
                 case Direction.West:
-                    Position.Decrease(Axis.X);
+
+                    if (!NextPositionIsObstacle(Axis.X, -1))
+                    {
+                        Position.Decrease(Axis.X);
+                        Energy.Discharge(1m);
+                    }
                     break;
             }
 
-            Energy.Discharge(1);
+            Energy.Discharge(0.1m);
         }
 
         public void Back()
@@ -185,6 +249,7 @@ namespace Domain.Entities
                 Energy.Discharge(2m);
             }
         }
+
 
     }
 }

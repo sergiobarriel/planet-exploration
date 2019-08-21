@@ -14,6 +14,7 @@ namespace Domain.Entities
         private IRover Rover { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
+        private bool MustContainObstacles { get; set; }
 
         private Surface() => Quadrants = new HashSet<IQuadrant>();
 
@@ -24,6 +25,7 @@ namespace Domain.Entities
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
+        /// <param name="withObstacles"></param>
         /// <returns></returns>
         public ISurfaceDimension SetDimension(int width = 10, int height = 10)
         {
@@ -37,15 +39,33 @@ namespace Domain.Entities
             return this;
         }
 
+
+        public ISurfaceObstacle WithObstacles()
+        {
+            MustContainObstacles = true;
+            return this;
+        }
+
+        public ISurfaceObstacle WithoutObstacles()
+        {
+            MustContainObstacles = false;
+            return this;
+        }
+
+        /// <summary>
+        /// Set surface (this) on rover
+        /// </summary>
+        /// <param name="rover"></param>
+        /// <returns></returns>
         public ISurfaceRover SetRover(IRover rover)
         {
-            Rover = rover;
+            if(rover is null) throw new Exception($"Rover is null.");
 
-            // TODO
-            // Propagate data from surface to rover here?
+            Rover = rover.SetSurface(this);
 
             return this;
         }
+
 
         public ISurface Build()
         {
@@ -62,7 +82,9 @@ namespace Domain.Entities
         /// <param name="h"></param>
         private void AddQuadrant(int w, int h)
         {
-            if (Random.GetRandom(weight: 90))
+            var weight = MustContainObstacles ? 90 : 100;
+
+            if (Random.GetRandom(weight: weight))
             {
                 Quadrants.Add(Quadrant.Create()
                     .SetPosition(w, h)
@@ -76,7 +98,7 @@ namespace Domain.Entities
                     .SetTerrain(Enums.Terrain.Rock)
                     .Build());
             }
-        }
+        } 
 
         /// <summary>
         /// Return quadrant based on specific cartesian coordinates
@@ -93,6 +115,8 @@ namespace Domain.Entities
             throw new Exception($"{nameof(Quadrant)} ({x},{y}) not found.");
         }
 
+        public IEnumerable<IQuadrant> GetQuadrants() => Quadrants;
+
         public int GetWidth() => Width;
         public int GetHeight() => Height;
         public IRover GetRover() => Rover;
@@ -107,6 +131,7 @@ namespace Domain.Entities
                                  && Height >= 10
                                  && Quadrants != null
                                  && Quadrants.Count() == Width * Height;
+
 
     }
 }

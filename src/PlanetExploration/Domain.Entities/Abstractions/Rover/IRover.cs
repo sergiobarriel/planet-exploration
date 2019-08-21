@@ -4,7 +4,7 @@ using Domain.Entities.Enums;
 
 namespace Domain.Entities.Abstractions.Rover
 {
-    public interface IRover : IRoverDirection, IRoverEnergy, IRoverInstance, IRoverLimit, IRoverPosition
+    public interface IRover : IRoverDirection, IRoverEnergy, IRoverInstance, IRoverLimit, IRoverPosition, IRoverSurface
     {
         void Advance();
         void Back();
