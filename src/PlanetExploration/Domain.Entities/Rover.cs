@@ -120,7 +120,7 @@ namespace Domain.Entities
 
         public void Advance()
         {
-            if (!Energy.HasEnergy()) return;
+            if (!Energy.HasSpecificEnergy(1m)) return;
 
             switch (Direction)
             {
@@ -166,7 +166,7 @@ namespace Domain.Entities
 
         public void Back()
         {
-            if (!Energy.HasEnergy()) return;
+            if (!Energy.HasSpecificEnergy(1)) return;
 
             switch (Direction)
             {
@@ -210,7 +210,7 @@ namespace Domain.Entities
 
         public void TurnLeft()
         {
-            if (!Energy.HasEnergy()) return;
+            if (!Energy.HasSpecificEnergy(0.5m)) return;
 
             switch (Direction)
             {
@@ -233,7 +233,7 @@ namespace Domain.Entities
 
         public void TurnRight()
         {
-            if (!Energy.HasEnergy()) return;
+            if (!Energy.HasSpecificEnergy(0.5m)) return;
 
             switch (Direction)
             {
@@ -256,7 +256,7 @@ namespace Domain.Entities
 
         public void Drill()
         {
-            if (Energy.HasEnergy())
+            if (Energy.HasSpecificEnergy(2m))
             {
                 // TODO... 
 

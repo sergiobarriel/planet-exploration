@@ -15,6 +15,7 @@ namespace Domain.Entities
         public void Discharge(decimal energy) => Load -= energy;
 
         public bool HasEnergy() => Load > 0;
+        public bool HasSpecificEnergy(decimal energy) => Load - energy >= 0;
         public decimal GetLoad() => Load;
     }
 }

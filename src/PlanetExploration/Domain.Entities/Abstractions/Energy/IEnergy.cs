@@ -6,6 +6,7 @@
         void Discharge(decimal energy);
 
         bool HasEnergy();
+        bool HasSpecificEnergy(decimal energy);
         decimal GetLoad();
     }
 }
