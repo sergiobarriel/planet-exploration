@@ -27,5 +27,5 @@ All Rover movements consume energy. Be careful because you must fulfill the miss
 - A rock can contain water.
 - A rock can contain 
 
-### :email: Contact
+### :telephone_receiver: Contact
 You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)
