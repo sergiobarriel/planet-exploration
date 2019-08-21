@@ -13,7 +13,7 @@ namespace Domain.Entities
 {
     public class Rover : IRover
     {
-        private IList<char> Commands { get; set; }
+        private string Message { get; set; }
         private IPoint Position { get; set; }
         private Direction Direction { get; set; }
         private IEnergy Energy { get; set; }
@@ -22,13 +22,13 @@ namespace Domain.Entities
         public IPoint GetPosition() => Position;
         public Direction GetDirection() => Direction;
         public IEnergy GetEnergy() => Energy;
+        public string GetMessage() => Message;
 
-        private Rover()
+        private Rover() { }
+
+        public static IRoverInstance Create() => new Rover()
         {
-            Commands = new List<char>();
-        }
-
-        public static IRoverInstance Create() => new Rover();
+        };
 
         public IRoverDirection SetDirection(Direction direction)
         {
@@ -75,25 +75,37 @@ namespace Domain.Entities
             Position = Point.Create(quadrant.GetPoint().GetX(), quadrant.GetPoint().GetY()).Build();
         }
 
-        public void ExecuteCommands(string commands)
+        public string ExecuteCommands(string commands)
         {
             foreach (var command in commands.ToUpper().ToCharArray())
             {
                 ExecuteCommand(command);
             }
+
+            return Message;
         }
 
         private void ExecuteCommand(char command)
         {
-            if (!Energy.HasEnergy()) return;
+            if (Energy.HasEnergy())
+            {
+                if (command.Equals('A'))
+                    Advance();
 
-            if (command.Equals('A')) Advance();
-            if (command.Equals('B')) Back();
-            if (command.Equals('R')) TurnRight();
-            if (command.Equals('L')) TurnLeft();
-            if (command.Equals('D')) Drill();
+                if (command.Equals('B'))
+                    Back();
+                if (command.Equals('R'))
+                    TurnRight();
 
-            Commands.Add(command);
+                if (command.Equals('L'))
+                    TurnLeft();
+
+                if (command.Equals('D'))
+                    Drill();
+
+                if (Surface.IsMissionAccomplished())
+                    Message = $"Mission accomplished!";
+            }
         }
 
         /// <summary>
@@ -182,7 +194,7 @@ namespace Domain.Entities
                     break;
 
                 case Direction.South:
-                    
+
                     if (!NextPositionIsObstacle(Axis.Y, 1))
                     {
                         Position.Increase(Axis.Y, Surface.GetHeight());
@@ -191,7 +203,7 @@ namespace Domain.Entities
                     break;
 
                 case Direction.East:
-                   
+
                     if (!NextPositionIsObstacle(Axis.X, -1))
                     {
                         Position.Decrease(Axis.X);
@@ -268,12 +280,13 @@ namespace Domain.Entities
 
                     if (@object is Rock)
                     {
-                        if (@object.HasWater)
-                        {
-                            // TODO: What's happens?                            
-                        }
+                        if (@object.HasWater) Message = $"Water found on ({quadrant.GetPoint().GetX()}, {quadrant.GetPoint().GetY()}) quadrant.";
 
-                        if (@object.HasPlutonium) Energy.Charge();
+                        if (@object.HasPlutonium)
+                        {
+                            Energy.Charge();
+                            Message = $"Plutonium-238 found on ({quadrant.GetPoint().GetX()}, {quadrant.GetPoint().GetY()}) quadrant. Rover recharged.";
+                        }
 
                         quadrant.DrillQuadrant();
                         Energy.Discharge(2m);
@@ -301,7 +314,7 @@ namespace Domain.Entities
             {
                 case Direction.North:
 
-                    if(Position.GetY() < Surface.GetHeight())
+                    if (Position.GetY() < Surface.GetHeight())
                         quadrant = Surface.GetQuadrant(Position.GetX(), Position.GetY() + 1);
 
                     break;

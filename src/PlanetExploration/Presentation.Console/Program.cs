@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Domain.Entities;
 using Domain.Entities.Enums;
 
 namespace Presentation.Console
@@ -7,30 +9,29 @@ namespace Presentation.Console
     {
         public static void Main(string[] args)
         {
+            Display.SetConsoleDefaults();
+
             var surface = Surface.Create()
-                .WithObstacles(weight: 10)
+                .WithObstacles(weight: 1)
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
                     .SetDirection(Direction.North)
                     .SetEnergy(100)
                     .Build())
-                
                 .Build();
 
-            Display.PrintSurface(surface);
+            Display.PrintPanel(surface, null);
 
             while (true)
             {
-                Display.Jump();
-
-                Display.NewLine("(A)dvance, (B)ack, (R)ight, (L)eft, (D)rill");
-                Display.SameLine("Enter commands: ");
+                Display.PrintCommandRequest();
 
                 var commands = System.Console.ReadLine();
+                var message = surface.GetRover().ExecuteCommands(commands);
 
-                surface.GetRover().ExecuteCommands(commands);
+                Display.Clear();
 
-                Display.PrintSurface(surface);
+                Display.PrintPanel(surface, message);
             }
         }
     }

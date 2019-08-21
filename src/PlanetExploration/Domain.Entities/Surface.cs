@@ -125,6 +125,13 @@ namespace Domain.Entities
         public IEnumerable<IQuadrant> GetOccupiedQuadrants() => Quadrants.Where(quadrant => quadrant.GetObject().IsObstacle == true);
 
         /// <summary>
+        /// Consider "mission accomplished" when all rocks are drilled and Rover has energy
+        /// </summary>
+        /// <returns></returns>
+        public bool IsMissionAccomplished() => GetFreeQuadrants().Count() == GetWidth() * GetHeight() 
+                                               && Rover.GetEnergy().HasEnergy();
+
+        /// <summary>
         /// Returns free quadrants that are not in the limit to place rover
         /// </summary>
         /// <returns></returns>

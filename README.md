@@ -30,7 +30,7 @@ All Rover movements consume energy. Be careful because you must fulfill the miss
 - ~~Rover can drill a rock~~.
 - ~~A rock can contain water~~.
 - ~~A rock can contain Plutonium-238~~
-- the Mission Control Officer should receive a message when he finds water
+- ~~The Mission Control Officer should receive a message when he finds water, energy or complete mission~~
 
 ### Contact
 You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)

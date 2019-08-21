@@ -14,5 +14,6 @@ namespace Domain.Entities.Abstractions.Surface
         IEnumerable<IQuadrant> GetFreeQuadrants();
         IEnumerable<IQuadrant> GetOccupiedQuadrants();
         IEnumerable<IQuadrant> GetFreeQuadrantsForRover();
+        bool IsMissionAccomplished();
     }
 }

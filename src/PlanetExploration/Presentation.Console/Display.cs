@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Domain.Entities;
 using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Abstractions.Surface;
 using Domain.Entities.Enums;
@@ -8,14 +11,88 @@ namespace Presentation.Console
 {
     public static class Display
     {
-        public static void PrintSurface(ISurface surface)
+        public static void Clear() => System.Console.Clear();
+
+        #region Helpers
+
+        /// <summary>
+        /// Jump n times
+        /// </summary>
+        /// <param name="amount"></param>
+        private static void Jump(int amount = 1)
         {
-            System.Console.Clear();
+            for (var i = 0; i < amount; i++)
+                System.Console.Write("\r\n");
+        }
+
+        /// <summary>
+        /// Set default foreground and background color for console
+        /// </summary>
+        public static void SetConsoleDefaults()
+        {
+            System.Console.ForegroundColor = ConsoleColor.White;
+            System.Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+        /// <summary>
+        /// Set console to specific foreground and background color
+        /// </summary>
+        /// <param name="foreColor"></param>
+        /// <param name="backgroundColor"></param>
+        private static void SetConsoleColor(ConsoleColor foreColor, ConsoleColor backgroundColor)
+        {
+            System.Console.ForegroundColor = foreColor;
+            System.Console.BackgroundColor = backgroundColor;
+        }
+
+        /// <summary>
+        /// Print text in same line (foreground and background colors are optionally)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="foreColor"></param>
+        /// <param name="backgroundColor"></param>
+        private static void PrintInSameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        {
+            SetConsoleColor(foreColor, backgroundColor);
+
+            System.Console.Write($" {value} ");
 
             SetConsoleDefaults();
+        }
 
-            PrintInfo(surface.GetRover());
+        /// <summary>
+        /// Print text in new line (foreground and background colors are optionally)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="foreColor"></param>
+        /// <param name="backgroundColor"></param>
+        private static void PrintInNewLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        {
+            SetConsoleColor(foreColor, backgroundColor);
 
+            System.Console.WriteLine($" {value} ");
+
+            SetConsoleDefaults();
+        }
+
+        #endregion
+
+        public static void PrintCommandRequest()
+        {
+            Jump();
+            PrintInNewLine("(A)dvance, (B)ack, (R)ight, (L)eft, (D)rill");
+            Jump();
+            PrintInSameLine("Enter commands: ");
+        }
+
+        public static void PrintPanel(ISurface surface, string message)
+        {
+            PrintRoverInfo(surface.GetRover(), message);
+            PrintSurface(surface);
+        }
+
+        private static void PrintSurface(ISurface surface)
+        {
             for (var height = surface.GetHeight(); height >= 1; height--)
             {
                 for (var width = 1; width <= surface.GetWidth(); width++)
@@ -50,60 +127,35 @@ namespace Presentation.Console
             }
         }
 
-        public static void Jump(int amount = 1)
+        private static void PrintRoverInfo(IRover rover, string message)
         {
-            for (var i = 0; i < amount; i++)
-                System.Console.Write("\r\n");
-        }
+            PrintInNewLine("----------------------------");
 
-        private static void PrintInfo(IRover rover)
-        {
-            Separator();
-            Info($"Energy: {rover.GetEnergy().GetLoad()}");
-            Info($"Direction: {rover.GetDirection()}");
-            Info($"X position: {rover.GetPosition().GetX()}");
-            Info($"Y position: {rover.GetPosition().GetY()}");
-            Separator();
+            PrintInNewLine($"Energy: {rover.GetEnergy().GetLoad()}");
+            PrintInNewLine($"Direction: {rover.GetDirection()}");
+            PrintInNewLine($"Position (x: {rover.GetPosition().GetX()}, y: {rover.GetPosition().GetY()})");
+            PrintInSameLine("Messages: ");
+
+            if(message != null)
+                PrintInSameLine($"{message} ");
+
+            Jump();
+
+            PrintInNewLine("----------------------------");
+
             Jump();
         }
 
 
-        public static void SameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
-        {
-            SetConsoleColor(foreColor, backgroundColor);
-
-            System.Console.Write($" {value} ");
-
-            SetConsoleDefaults();
-        }
-
-        public static void NewLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
-        {
-            SetConsoleColor(foreColor, backgroundColor);
-
-            System.Console.WriteLine($" {value} ");
-
-            SetConsoleDefaults();
-        }
-
-        private static void SetConsoleColor(ConsoleColor foreColor, ConsoleColor backgroundColor)
-        {
-            System.Console.ForegroundColor = foreColor;
-            System.Console.BackgroundColor = backgroundColor;
-        }
-
-        private static void SetConsoleDefaults()
-        {
-            System.Console.ForegroundColor = ConsoleColor.White;
-            System.Console.BackgroundColor = ConsoleColor.Black;
-        }
 
 
-        private static void PrintRover(string direction) => SameLine($"{direction}", ConsoleColor.Black, ConsoleColor.White);
-        private static void PrintSand() => SameLine($"s");
-        private static void PrintRock() => SameLine($"R", ConsoleColor.White, ConsoleColor.DarkGray);
+        #region Facades
 
-        private static void Separator() => NewLine($"-----------------");
-        private static void Info(string info) => NewLine(info);
+        private static void PrintRover(string direction) => PrintInSameLine($"{direction}", ConsoleColor.Black, ConsoleColor.White);
+        private static void PrintSand() => PrintInSameLine("s");
+        private static void PrintRock() => PrintInSameLine("R", ConsoleColor.White, ConsoleColor.DarkGray);
+
+        #endregion
+
     }
 }
