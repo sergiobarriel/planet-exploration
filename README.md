@@ -12,7 +12,7 @@ In the terminal, you can throw his commands:
 - **B**, to back
 - **R**, to turn right
 - **L**, to turn left
-- **D**, to drill a rock
+- **D**, to drill a rock (pending)
 
 All Rover movements consume energy. Be careful because you must fulfill the mission.
 
