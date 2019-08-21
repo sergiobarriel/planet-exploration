@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Entities.Enums;
 
 namespace Presentation.Console
@@ -12,7 +10,7 @@ namespace Presentation.Console
             Display.SetConsoleDefaults();
 
             var surface = Surface.Create()
-                .WithObstacles(weight: 1)
+                .WithObstacles(weight: 10)
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
                     .SetDirection(Direction.North)

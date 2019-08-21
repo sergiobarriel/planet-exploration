@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Domain.Entities;
 using Domain.Entities.Abstractions.Rover;
 using Domain.Entities.Abstractions.Surface;
 using Domain.Entities.Enums;
@@ -11,9 +8,16 @@ namespace Presentation.Console
 {
     public static class Display
     {
-        public static void Clear() => System.Console.Clear();
+        #region Constants
+
+        private const string Line = "---------------------------";
+
+        #endregion
+
 
         #region Helpers
+        public static void Clear() => System.Console.Clear();
+
 
         /// <summary>
         /// Jump n times
@@ -51,11 +55,13 @@ namespace Presentation.Console
         /// <param name="value"></param>
         /// <param name="foreColor"></param>
         /// <param name="backgroundColor"></param>
-        private static void PrintInSameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
+        private static void PrintInSameLine(string value, ConsoleColor foreColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, bool wrap = true)
         {
             SetConsoleColor(foreColor, backgroundColor);
 
-            System.Console.Write($" {value} ");
+            var wrapSpace = wrap ? " " : string.Empty;
+
+            System.Console.Write($"{wrapSpace}{value}{wrapSpace}");
 
             SetConsoleDefaults();
         }
@@ -129,19 +135,19 @@ namespace Presentation.Console
 
         private static void PrintRoverInfo(IRover rover, string message)
         {
-            PrintInNewLine("----------------------------");
+            PrintInNewLine(Line);
 
             PrintInNewLine($"Energy: {rover.GetEnergy().GetLoad()}");
             PrintInNewLine($"Direction: {rover.GetDirection()}");
             PrintInNewLine($"Position (x: {rover.GetPosition().GetX()}, y: {rover.GetPosition().GetY()})");
             PrintInSameLine("Messages: ");
 
-            if(message != null)
-                PrintInSameLine($"{message} ");
+            if (message != null)
+                PrintInSameLine($"{message} ", ConsoleColor.White, ConsoleColor.Black, false);
 
             Jump();
 
-            PrintInNewLine("----------------------------");
+            PrintInNewLine(Line);
 
             Jump();
         }

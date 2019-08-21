@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;

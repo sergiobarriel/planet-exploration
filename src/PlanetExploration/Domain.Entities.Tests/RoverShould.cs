@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Domain.Entities.Enums;
+﻿using Domain.Entities.Enums;
 using Xunit;
 
 namespace Domain.Entities.Tests

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Domain.Entities.Abstractions.Energy;
+﻿using Domain.Entities.Abstractions.Energy;
 using Domain.Entities.Abstractions.Point;
 using Domain.Entities.Enums;
 
