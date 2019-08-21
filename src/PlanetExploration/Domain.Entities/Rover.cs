@@ -273,6 +273,8 @@ namespace Domain.Entities
                             // TODO: What's happens?                            
                         }
 
+                        if (@object.HasPlutonium) Energy.Charge();
+
                         quadrant.DrillQuadrant();
                         Energy.Discharge(2m);
                     }

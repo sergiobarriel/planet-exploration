@@ -6,11 +6,13 @@ namespace Domain.Entities.Terrain
     {
         public bool IsObstacle { get; set; }
         public bool HasWater { get; set; }
+        public bool HasPlutonium { get; set; }
 
         public Sand()
         {
             IsObstacle = false;
             HasWater = false;
+            HasPlutonium = false;
         }
     }
 }

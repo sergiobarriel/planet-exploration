@@ -7,11 +7,13 @@ namespace Domain.Entities.Terrain
     {
         public bool IsObstacle { get; set; }
         public bool HasWater { get; set; }
+        public bool HasPlutonium { get; set; }
 
         public Rock()
         {
             IsObstacle = true;
             HasWater = Random.GetRandom(50);
+            HasPlutonium = Random.GetRandom(30);
         }
     }
 }
