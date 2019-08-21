@@ -16,16 +16,16 @@ In the terminal, you can throw his commands:
 
 All Rover movements consume energy. Be careful because you must fulfill the mission.
 
-### :computer: About application
+### About application
 
 ...
 
-### :pencil2: Pending work
+### Pending work
 - ~~Rover cannot advance or back over a rock.~~
 - ~~Rover cannot be placed over a rock~~.
 - Rover can drill a rock.
 - A rock can contain water.
 - A rock can contain 
 
-### :telephone_receiver: Contact
+### Contact
 You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)
