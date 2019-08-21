@@ -2,7 +2,7 @@
 {
     public interface ISurfaceInstance
     {
-        ISurfaceObstacle WithObstacles();
+        ISurfaceObstacle WithObstacles(int weight);
         ISurfaceObstacle WithoutObstacles();
     }
 }

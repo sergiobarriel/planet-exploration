@@ -14,7 +14,7 @@ namespace Domain.Entities
         private IRover Rover { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }
-        private bool MustContainObstacles { get; set; }
+        private int WeightOfObstacules { get; set; }
 
         private Surface() => Quadrants = new HashSet<IQuadrant>();
 
@@ -40,15 +40,15 @@ namespace Domain.Entities
         }
 
 
-        public ISurfaceObstacle WithObstacles()
+        public ISurfaceObstacle WithObstacles(int weight = 10)
         {
-            MustContainObstacles = true;
+            WeightOfObstacules = weight;
             return this;
         }
 
         public ISurfaceObstacle WithoutObstacles()
         {
-            MustContainObstacles = false;
+            WeightOfObstacules = 0;
             return this;
         }
 
@@ -82,7 +82,7 @@ namespace Domain.Entities
         /// <param name="h"></param>
         private void AddQuadrant(int w, int h)
         {
-            var weight = MustContainObstacles ? 90 : 100;
+            var weight = 100 - WeightOfObstacules;
 
             if (Random.GetRandom(weight: weight))
             {

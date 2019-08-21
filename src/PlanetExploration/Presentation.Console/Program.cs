@@ -8,7 +8,7 @@ namespace Presentation.Console
         public static void Main(string[] args)
         {
             var surface = Surface.Create()
-                .WithObstacles()
+                .WithObstacles(weight: 10)
                 .SetDimension(15, 15)
                 .SetRover(Rover.Create()
                     .SetLimits(15, 15)

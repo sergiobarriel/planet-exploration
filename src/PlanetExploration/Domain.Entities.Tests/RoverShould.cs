@@ -223,5 +223,54 @@ namespace Domain.Entities.Tests
             Assert.True(rover.GetPosition().GetY() < commands.Length);
             Assert.True(rover.GetPosition().GetX() == 1);
         }
+
+
+        [Fact]
+        public void rover_cannot_advance_over_a_rock()
+        {
+            var rover = Rover.Create()
+                .SetLimits(10, 10)
+                .SetPosition(5, 5)
+                .SetDirection(Direction.North)
+                .SetEnergy(5)
+                .Build();
+
+            var surface = Surface.Create()
+                .WithObstacles(weight: 100)
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
+            var commands = "BBBBB";
+
+            rover.ExecuteCommands(commands);
+
+            Assert.True(rover.GetPosition().GetY() == 5);
+            Assert.True(rover.GetPosition().GetX() == 5);
+        }
+
+        [Fact]
+        public void rover_cannot_back_over_a_rock()
+        {
+            var rover = Rover.Create()
+                .SetLimits(10, 10)
+                .SetPosition(5, 5)
+                .SetDirection(Direction.North)
+                .SetEnergy(5)
+                .Build();
+
+            var surface = Surface.Create()
+                .WithObstacles(weight: 100)
+                .SetDimension(10, 10)
+                .SetRover(rover)
+                .Build();
+
+            var commands = "BBBBB";
+
+            rover.ExecuteCommands(commands);
+
+            Assert.True(rover.GetPosition().GetY() == 5);
+            Assert.True(rover.GetPosition().GetX() == 5);
+        }
     }
 }

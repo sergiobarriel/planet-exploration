@@ -72,7 +72,7 @@ namespace Domain.Entities.Tests
         public void surface_with_obstacles_contains_obstacles()
         {
             var surface = Surface.Create()
-                .WithObstacles()
+                .WithObstacles(weight: 10)
                 .SetDimension(10, 10)
                 .SetRover(GetDefaultRover())
                 .Build();
