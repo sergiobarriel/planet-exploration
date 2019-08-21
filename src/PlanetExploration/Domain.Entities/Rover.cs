@@ -178,20 +178,41 @@ namespace Domain.Entities
             switch (Direction)
             {
                 case Direction.North:
-                    Position.Decrease(Axis.Y);
+
+                    if (!NextPositionIsObstacle(Axis.Y, -1))
+                    {
+                        Position.Decrease(Axis.Y);
+                        Energy.Discharge(1);
+                    }
                     break;
+
                 case Direction.South:
-                    Position.Increase(Axis.Y, MaxHeightSurface);
+                    
+                    if (!NextPositionIsObstacle(Axis.Y, 1))
+                    {
+                        Position.Increase(Axis.Y, MaxHeightSurface);
+                        Energy.Discharge(1);
+                    }
                     break;
+
                 case Direction.East:
-                    Position.Decrease(Axis.X);
+                   
+                    if (!NextPositionIsObstacle(Axis.X, -1))
+                    {
+                        Position.Decrease(Axis.X);
+                        Energy.Discharge(1);
+                    }
                     break;
+
                 case Direction.West:
-                    Position.Increase(Axis.X, MaxWidthSurface);
+
+                    if (!NextPositionIsObstacle(Axis.X, 1))
+                    {
+                        Position.Increase(Axis.X, MaxWidthSurface);
+                        Energy.Discharge(1);
+                    }
                     break;
             }
-
-            Energy.Discharge(1);
         }
 
         public void TurnLeft()
