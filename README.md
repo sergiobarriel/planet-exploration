@@ -7,7 +7,7 @@ Mini game based on [Mars Rover](http://kata-log.rocks/mars-rover-kata) Kata
 ### :page_with_curl: Instructions
 A Rover has just landed on Mars and you, as Mission Control Officer, must control it.
 
-You can find water when rock has been drilled, but in some strange cases you can find on rocks natural deposits of Plutonium-238 radioactive isotopes that will recharge the Rover
+You can find water when rock has been drilled, but in some strange cases you can find on rocks natural deposits of Plutonium-238 radioactive isotopes (!!) that will recharge the Rover
 
 In the terminal, you can throw his commands:
 - **A**, to advance
