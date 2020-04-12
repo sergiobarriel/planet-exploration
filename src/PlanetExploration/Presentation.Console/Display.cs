@@ -14,7 +14,6 @@ namespace Presentation.Console
 
         #endregion
 
-
         #region Helpers
         public static void Clear() => System.Console.Clear();
 
@@ -151,8 +150,6 @@ namespace Presentation.Console
 
             Jump();
         }
-
-
 
 
         #region Facades

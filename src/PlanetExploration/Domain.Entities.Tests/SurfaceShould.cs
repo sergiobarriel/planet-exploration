@@ -75,7 +75,7 @@ namespace Domain.Entities.Tests
                 .SetRover(GetDefaultRover())
                 .Build();
 
-            Assert.True(surface.GetQuadrants().Any(x => x.GetObject().IsObstacle));
+            Assert.Contains(surface.GetQuadrants(), x => x.GetObject().IsObstacle);
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace Domain.Entities.Tests
                 .SetRover(GetDefaultRover())
                 .Build();
 
-            Assert.False(surface.GetQuadrants().Any(x => x.GetObject().IsObstacle));
+            Assert.DoesNotContain(surface.GetQuadrants(), x => x.GetObject().IsObstacle);
         }
     }
 }
